@@ -5,6 +5,7 @@ import AttendanceCard from "@/components/ui/attendanceCard";
 import { students } from "@/data/students";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { mkConfig, generateCsv, download } from "export-to-csv";
 
 import {
     RocketIcon,
@@ -30,25 +31,30 @@ const Dashboard = () => {
     }, [present]);
 
     const handleSubmit = () => {
-        const finalData: { id: number; name: string; isPresent: boolean }[] =
-            [];
+        const finalData: { id: number; name: string; isPresent: 1 | 0 }[] = [];
         presentStudents.forEach((student) => {
             finalData.push({
                 id: student.id,
                 name: student.name,
-                isPresent: true,
+                isPresent: 1,
             });
         });
         absentStudents.forEach((student) => {
             finalData.push({
                 id: student.id,
                 name: student.name,
-                isPresent: false,
+                isPresent: 0,
             });
         });
 
         finalData.sort((a, b) => a.id - b.id);
-        console.log(finalData);
+        const csvConfig = mkConfig({
+            useKeysAsHeaders: true,
+            filename: "attendance",
+        });
+        const csv = generateCsv(csvConfig)(finalData);
+        download(csvConfig)(csv);
+
         toast.success("Attendance marked successfully!");
     };
 
