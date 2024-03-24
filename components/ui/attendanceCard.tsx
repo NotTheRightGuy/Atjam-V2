@@ -78,7 +78,7 @@ const AttendanceCard = ({
                 if (e.key === "Enter") handleClick();
             }}
         >
-            <Card className="px-3 py-3 flex flex-col cursor-pointer">
+            <Card className="px-3 py-3 flex flex-col cursor-pointer ">
                 <div className="text-sm flex gap-5 items-center justify-between">
                     <p>{student.id}</p>
                     <div
