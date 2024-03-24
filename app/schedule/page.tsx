@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useState } from "react";
 
 function Page() {
     const handleFileUpload = (e) => {
@@ -11,7 +12,7 @@ function Page() {
 
     return (
         <div>
-            <h1 className="text-2xl font-semibold font-space">Schedule</h1>
+            <h1 className="text-7xl font-semibold font-space text-center animate-pulse">Schedule</h1>
             <input type="file" accept=".pdf" onChange={handleFileUpload} />
         </div>
     );
