@@ -6,6 +6,8 @@ import { students } from "@/data/students";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { mkConfig, generateCsv, download } from "export-to-csv";
+import Link from "next/link";
+
 
 import {
     RocketIcon,
@@ -68,10 +70,12 @@ const Dashboard = () => {
                 className="flex pt-[4.4%]"
             >
                 <div className="w-[20%] border-r-2 border-slate-200 h-full px-4 py-4 flex flex-col gap-1 font-space fixed max-sm:hidden">
-                    <div className="flex items-center gap-2 p-2 cursor-pointer">
-                        <RocketIcon className="w-5 h-5" />
-                        Schedule
-                    </div>
+                    <Link href="/schedule">
+                        <div className="flex items-center gap-2 p-2 cursor-pointer">
+                            <RocketIcon className="w-5 h-5" />
+                            Schedule
+                        </div>
+                    </Link>
                     <div className="flex items-center gap-2 bg-black text-white rounded-md p-2 font-bold cursor-pointer">
                         <IdCardIcon className="w-5 h-5" />
                         Attendance
