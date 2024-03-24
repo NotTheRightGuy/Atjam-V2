@@ -11,7 +11,7 @@ export const Navbar = ({
     setPresent: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
     return (
-        <div className="border-b-2 border-slate-200 px-4 py-2 flex items-center fixed w-screen bg-white z-10">
+        <div className="border-b-2 border-slate-200 px-4 py-2 flex items-center fixed w-screen bg-white z-10 ">
             <Card className="w-fit py-2 px-5">
                 <div className="flex justify-between items-center gap-4">
                     <UserButton showName={true} />
