@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Class {
+  id         String       @id @default(auto()) @map("_id") @db.ObjectId
+  branch     String
+  year       Int
+  students   Student[]
+  Teacher    Teacher?     @relation(fields: [teacherId], references: [id])
+  teacherId  String?      @db.ObjectId
+  Attendance Attendance[]
+}
+
+model Student {
+  enrollmentNumber  String              @id @map("_id") @db.ObjectId
+  name              String
+  classId           String              @db.ObjectId
+  class             Class               @relation(fields: [classId], references: [id])
+  StudentAttendance StudentAttendance[]
+}
+
+model Teacher {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  classes Class[]
+}
+
+model Subject {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+}
+
+model Attendance {
+  id                 String              @id @default(auto()) @map("_id") @db.ObjectId
+  date               DateTime
+  classId            String              @db.ObjectId
+  class              Class               @relation(fields: [classId], references: [id])
+  studentsAttendance StudentAttendance[]
+}
+
+model StudentAttendance {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  studentId    String     @db.ObjectId
+  student      Student    @relation(fields: [studentId], references: [enrollmentNumber])
+  attendanceId String     @db.ObjectId
+  attendance   Attendance @relation(fields: [attendanceId], references: [id])
+  isPresent    Boolean
+}
